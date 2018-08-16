@@ -19,9 +19,6 @@
 %type <Syntax.exp> toplevel
 %%
 
-if 10==15 { 10 * 10 }
-IF LPAREN NUMBER EQEQ NUMBER RPAREN LBRACE NUMBER ASTERISK NUMBER RBRACE ELSE LBRACE NUMBER RBRACE
-
 toplevel:
   |Expr* EOF { MultiExpr($1) }
 

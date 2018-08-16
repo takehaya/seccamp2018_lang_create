@@ -1,11 +1,32 @@
+open Codegen
+open Typify
+open Syntax
+open Type
+open Printf
+(* main *)
 let () =
-  let exprs = Parser.toplevel Lexer.token (Lexing.from_channel stdin) in
-  List.iter (fun expr -> Sub.print_expr stdout expr; print_newline ()) exprs;;
-(* 
-  let print_int_list = List.print Int.print stdout
+  (* parse input *)
+  let program = Parser.toplevel Lexer.token (Lexing.from_channel stdin) in
+  (* type check *)
+  let typed_program = Typify.typify program in
 
-let main() =
-  let ast = Parser.toplevel Lexer.token Lexing.from_channel stdin in
-    print_int_list(ast)
+  (* codegen *)
+  let llvm_module = Codegen.codegen typed_program in
 
-let _ = main() *)
+  (* output llvm ir *)
+  let _ =
+    if Array.length Sys.argv > 1 then 
+    begin
+      (* assertion *)
+      Llvm_analysis.assert_valid_module llvm_module;
+      (* output bitcode to file *)
+      let oc = open_out Sys.argv.(1) in
+      Llvm_bitwriter.output_bitcode oc llvm_module |> ignore;
+      close_out oc;
+      ()
+    end
+    else 
+      (* output ir to stderr *)
+      Llvm.dump_module llvm_module
+  in
+  ()

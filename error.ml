@@ -1,3 +1,3 @@
-exception SilkError of string
+exception MioError of string
 exception TypeError of string
 exception Unimplemented

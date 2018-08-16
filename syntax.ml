@@ -26,6 +26,7 @@ type exp_t =
   |TMultiExpr of exp_t list * ty
   |TDefun of string * string list * exp_t * ty
 
+
 let typeof exp =
   match exp with
   |TUnit(t) -> t
@@ -38,25 +39,3 @@ let typeof exp =
   |TMultiExpr (_, t) -> t
   |TDefun (_, _, _, t) -> t
   
-
-let rec print_expr outchan = function
-| Unit(u) ->
-    Printf.printf "(%s)" u
-| Int(i) ->
-    Printf.printf "%s" i
-| Bool(b) ->
-    Printf.printf "%s" b
-| Call(f) ->
-    Printf.printf "%f" f
-| Assign(id) ->
-    Printf.printf "%s" id
-| Var(str) ->
-    Printf.printf "%s" str
-| Number(f) ->
-    Printf.printf "%f" f
-| If(f) ->
-    Printf.printf "%f" f
-| MultiExpr(f) ->
-    Printf.printf "%f" f
-| Defun(f) ->
-    Printf.printf "%f" f

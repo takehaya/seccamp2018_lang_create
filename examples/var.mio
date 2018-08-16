@@ -1,0 +1,6 @@
+func main() = {
+  func a = 10
+  
+  func b = -a*a + 5
+  print(b + 5)
+}

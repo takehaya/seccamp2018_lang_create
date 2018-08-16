@@ -1,0 +1,12 @@
+func fact(n:I32):I32 = {
+  if n == 0 {
+    1
+  }
+  else {
+    n * fact(n-1)
+  }
+}
+
+func main() = {
+  print(fact(5))
+} 

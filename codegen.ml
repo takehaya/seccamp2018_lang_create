@@ -237,7 +237,7 @@ let codegen exprs =
   let ctx = global_context() in
   let context = {
     llvm_ctx = ctx;
-    llvm_mod = create_module llvm_ctx "mio";
+    llvm_mod = create_module llvm_ctx "region_mio";
     env = [];
     defined_funcs = [
       ("print__Int", "print__Int");

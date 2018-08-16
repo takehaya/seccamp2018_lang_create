@@ -2,28 +2,28 @@ PROGRAM=./region_mio
 LIBSRC=./lib.c
 
 function compile {
-  lib=$(mktemp -q /tmp/hoge.ll)
+  lib=$(mktemp -q /tmp/$(uuidgen).ll)
   clang -c -S -emit-llvm "$LIBSRC" -o "$lib"
   if [ "$?" != "0" ]; then
     echo -e "lib compile failed $1"
     exit 1
   fi
 
-  ll=$(mktemp -q /tmp/fuga.ll)
+  ll=$(mktemp -q /tmp/$(uuidgen).ll)
   cat "$1" | gtimeout 5 "$PROGRAM" "$ll"
   if [ "$?" != "0" ]; then
     echo "ll compile failed $1"
     exit 1
   fi
 
-  bc=$(mktemp -q /tmp/piyo.bc)
+  bc=$(mktemp -q /tmp/$(uuidgen).bc)
   /usr/local/Cellar/llvm/6.0.1/bin/llvm-link "$ll" "$lib" -S -o "$bc"
   if [ "$?" != "0" ]; then
     echo -e "bc compile failed $1"
     exit 1
   fi
 
-  s=$(mktemp -q /tmp/fizz.s)
+  s=$(mktemp -q /tmp/$(uuidgen).s)
   /usr/local/Cellar/llvm/6.0.1/bin/llc "$bc" -o "$s"
   if [ "$?" != "0" ]; then
     echo -e "s compile failed $1"

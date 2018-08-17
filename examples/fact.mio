@@ -8,5 +8,5 @@ func fact(n:I32):I32 = {
 }
 
 func main() = {
-  print(fact(5))
+  print(fact(14))
 } 

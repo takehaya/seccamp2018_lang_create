@@ -1,0 +1,17 @@
+func id(x) = x 
+func cmp(x,y) = x == y
+func main() = {
+    func a = 10
+    func ab (n): = {
+        if 10<n{
+            true
+        }else{
+            false
+        }
+    }
+print(ab(a))
+  print(id(true))
+  print(id(1))
+  print(cmp(true, false))
+  print(cmp(1, 1))
+}
